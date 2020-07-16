@@ -76,4 +76,31 @@
 
                 return response()->json(compact('user'));
         }
+
+        public function updateUser(Request $request, $id) {
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
+            }
+
+            if($user->id !== (int) $id) {
+                return response()->json(["msg" => "You are not authorized to update this user."], 401);
+            }
+
+            if($request->password !== null) {
+                $credentials = $request->only('email', 'password');
+
+                if (! $token = JWTAuth::attempt($credentials)) {
+                    return response()->json(['error' => 'Invalid Credentials'], 400);
+                }
+
+                $user->password = Hash::make($request->get('newPassword'));
+            }
+
+            $user->image = $request->get("image");
+            $user->email = $request->get('email');
+            $user->name = $request->get('name');
+            $user->save();
+
+            return response($user, 200);
+        }
     }

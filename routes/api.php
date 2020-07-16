@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
 Route::get("/me", "UserController@getAuthenticatedUser");
+Route::put("/users/{id}", "UserController@updateUser");
 
 Route::get("/comments", "CommentController@index");
 Route::get("/comments/{id}", "CommentController@show");
