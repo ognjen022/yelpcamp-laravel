@@ -42,7 +42,7 @@
 
             $user = User::create([
                 'name' => $request->get('name'),
-                "image" =>$request->get('image') ? $request->get('image') : "https://www.worldfuturecouncil.org/wp-content/uploads/2020/06/blank-profile-picture-973460_1280-1.png",
+                "image" =>$request->get('image') ? $request->get('image') : "https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif",
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
             ]);
